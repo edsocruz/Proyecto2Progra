@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author metal
+ * @author edso1
  */
 public class Model {
      
