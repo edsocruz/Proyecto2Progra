@@ -1,6 +1,6 @@
 package coneccion;
 
-import cr.ac.database.managers.DBManager;
+//import cr.ac.database.managers.DBManager;
 import java.io.IOException;
 import java.sql.*;
 import java.util.*;
