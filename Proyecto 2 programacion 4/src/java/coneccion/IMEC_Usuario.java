@@ -1,15 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package coneccion;
 
-/**
- *
- * @author 50686
- */
+
 public enum IMEC_Usuario {
+    
     EXCLUIRPIZZA("DELETE FROM pizza WHERE  ID=?;"),
     EXCLUIRPIZZAINGREDIENTE("DELETE FROM relacion_pizza_ingredientes WHERE  pizza=?;"),
     CONSULTAR("SELECT id, tipo, password, nombre, apellido1, apellido2, direccion, telefono FROM usuario WHERE password=? AND id=?;"),
@@ -26,7 +20,9 @@ public enum IMEC_Usuario {
     LISTARINGREDIENTESPIZZA("SELECT pizza, ingrediente FROM relacion_pizza_ingredientes WHERE pizza=?; "),
     LISTARINGREDIENTESADICIONALES("SELECT pizza, ingrediente, orden FROM adicionales WHERE pizza=? AND orden = ?; "),
     INSERTARUSUARIO("INSERT INTO usuario(id, tipo, password, nombre, apellido1, apellido2, direccion, telefono) VALUES(?,?,?,?,?,?,?,?); "),
-    MODIFICARUSUARIO("UPDATE  usuario SET password=?, direccion=?, telefono=? WHERE id=?;");
+    MODIFICARUSUARIO("UPDATE  usuario SET password=?, direccion=?, telefono=? WHERE id=?;"),
+    INSERTARCOMENTARIO("INSERT INTO comentario (descripcion, usuario_coment_id) values (?,?); "),
+    LISTARCOMENTARIOS ( "SELECT id_comentario, descripcion, nombre, apellidos from comentario, usuario where id=usuario_coment_id; ");
 
     IMEC_Usuario(String comando) {
         this.comando = comando;

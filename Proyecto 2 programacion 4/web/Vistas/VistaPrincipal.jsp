@@ -23,13 +23,13 @@
                         <div class="form-group"><input class="form-control" type="cedúla" name="cedula" placeholder="Cédula" value="123" /></div>
                         <div class="form-group"><input class="form-control" type="password" name="password" placeholder="Password" value="admin" /></div>
                         <div  class="form-group">
-                            <button class="btn btn-warning btn-block" type="submit">Log In</button>
+                            <button class="btn btn-warning btn-block" type="submit">Ingresar</button>
                         </div>
                         <div class="form-group">
                             <button data-toggle="modal"   type="button" data-target="#registrarUser"  class="btn btn-warning btn-block" >Registrarse</button>
                         </div>
                         <div class="dropdown show" id="log" style="margin: 5%">
-                            <select class="btn btn-warning dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="rol">
+                            <select class="btn btn-warning dropdown-toggle" id="dropdownMenuLink" value="Cliente"data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="rol" vañi>
                                 <option class="dropdown-item">Cliente</option>
                                 <option class="dropdown-item">Administrador</option>
                             </select>

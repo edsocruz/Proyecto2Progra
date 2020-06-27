@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package coneccion;
 
 import clases.Ingrediente;
@@ -13,10 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-/**
- *
- * @author metal
- */
 public class DaoPizza {
 
     public static Pizza obtenerPizza(String id, Connection cnx) {

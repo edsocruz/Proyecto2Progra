@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Servicios;
 
 import Modelo.Model;
+import clases.Comentario;
 import clases.Ingrediente;
 import clases.Pizza;
 import clases.Usuario;
@@ -21,11 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author metal
- */
-@WebServlet(name = "ServletUsuario", urlPatterns = {"/logIn", "/Regisistrar", "/CrearPizza","/EliminarPizza","/ModificarUsuario"})
+@WebServlet(name = "ServletUsuario", urlPatterns = {"/logIn", "/Regisistrar", "/CrearPizza", "/CrearComentario", "/EliminarPizza", "/ModificarUsuario"})
 public class ServletUsuario extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -38,6 +30,9 @@ public class ServletUsuario extends HttpServlet {
         }
         if (request.getServletPath().equals("/CrearPizza")) {
             this.AgregarPizza(request, response);
+        }
+        if (request.getServletPath().equals("/CrearComentario")) {
+            this.AgregarComentario(request, response);
         }
         if (request.getServletPath().equals("/EliminarPizza")) {
             this.eliminarPizza(request, response);
@@ -62,13 +57,13 @@ public class ServletUsuario extends HttpServlet {
             request.getSession().setAttribute("listaIngrediente", listaIngredientes);
             if (rol.equals("Cliente")) {
                 RequestDispatcher dispatcher = request.getRequestDispatcher(
-                        "/Vistas/Menu.jsp");
+                        "/Vistas/Cliente.jsp");
                 dispatcher.forward(request, response);
             }
-        }else{
-        RequestDispatcher dispatcher = request.getRequestDispatcher(
-                "/Vistas/VistaPrincipal.jsp");
-        dispatcher.forward(request, response);
+        } else {
+            RequestDispatcher dispatcher = request.getRequestDispatcher(
+                    "/Vistas/Menu.jsp");
+            dispatcher.forward(request, response);
         }
     }
 
@@ -96,7 +91,7 @@ public class ServletUsuario extends HttpServlet {
         String nombre = request.getParameter("nombre");
         ArrayList<Ingrediente> listaI = (ArrayList<Ingrediente>) request.getSession().getAttribute("listaIngrediente");
         ArrayList<Ingrediente> listaTem = new ArrayList<>();
-        ArrayList<Pizza> listaPP = (ArrayList<Pizza>) request.getSession().getAttribute("listaPizzas"); 
+        ArrayList<Pizza> listaPP = (ArrayList<Pizza>) request.getSession().getAttribute("listaPizzas");
         int j = 0;
         for (Ingrediente i : listaI) {
 
@@ -106,20 +101,41 @@ public class ServletUsuario extends HttpServlet {
             }
             j++;
         }
-        Pizza pizza = new Pizza(nombre, listaTem, listaPP.size() + 1);        
+        Pizza pizza = new Pizza(nombre, listaTem, listaPP.size() + 1);
         Model.instance().AgregarPizza(pizza);
-            ArrayList<Pizza> listaPizzas = Model.instance().ObtenerListaPizzas();
-            request.getSession().setAttribute("listaPizzas", listaPizzas);
-            RequestDispatcher dispatcher = request.getRequestDispatcher(
+        ArrayList<Pizza> listaPizzas = Model.instance().ObtenerListaPizzas();
+        request.getSession().setAttribute("listaPizzas", listaPizzas);
+        RequestDispatcher dispatcher = request.getRequestDispatcher(
                 "/Vistas/Menu.jsp");
         dispatcher.forward(request, response);
+    }
+
+    protected void AgregarComentario(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException {
+
+        try {
+             
+            Comentario comentario = new Comentario();
+            Usuario usuario;
+            usuario = (Usuario) request.getSession(true).getAttribute("Usuario");
+            comentario.setUsuario(usuario);
+            comentario.setDescripcion(request.getParameter("cliente_comentario"));
+            Model.instance().InsertarComentario(comentario);
+            RequestDispatcher dispatcher = request.getRequestDispatcher(
+                "/Vistas/Cliente.jsp");
+
+            
+            
+        } catch (Exception e) {
+        }
+
     }
 
     protected void eliminarPizza(HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         int numC = Integer.parseInt(request.getParameter("PizzaID"));
-       ArrayList<Pizza> listaP = (ArrayList<Pizza>) request.getSession().getAttribute("listaPizzas"); 
+        ArrayList<Pizza> listaP = (ArrayList<Pizza>) request.getSession().getAttribute("listaPizzas");
         for (int i = 0; i < listaP.size(); i++) {
             if (listaP.get(i).getPizzaID() == numC) {
                 Model.instance().EliminarPizza(listaP.get(i).getPizzaID());
@@ -131,16 +147,16 @@ public class ServletUsuario extends HttpServlet {
                 "/Vistas/Menu.jsp");
         dispatcher.forward(request, response);
     }
-    
+
     protected void modificarUsuario(HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-        
+
         String id = request.getParameter("id");
         String direccion = request.getParameter("direccion");
         String telefono = request.getParameter("telefono");
         String contrasena = request.getParameter("contrasena");
-        
+
         Usuario usuario;
         usuario = (Usuario) request.getSession(true).getAttribute("Usuario");
         usuario.setClave_acceso(contrasena);
@@ -152,9 +168,7 @@ public class ServletUsuario extends HttpServlet {
                 "/Vistas/Menu.jsp");
         dispatcher.forward(request, response);
     }
-    
-    
-    
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

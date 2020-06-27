@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package coneccion;
 
 import clases.Producto;
@@ -12,10 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-/**
- *
- * @author metal
- */
 public class DaoRelacionProductoOrden {
     public static ArrayList<Producto> obtenerProductoOrden(String id, Connection cnx) {
         ArrayList<Producto> r = new ArrayList<>();

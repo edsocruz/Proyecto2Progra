@@ -1,8 +1,3 @@
-<%-- 
-    Document   : popUpRegistrarUsuario
-    Created on : 25/03/2020, 05:00:25 PM
-    Author     : Chris
---%>
 
 <div class="container container-fluid" id="containerCrearEncuesta">
     <form action="Regisistrar" method="post">

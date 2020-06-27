@@ -22,7 +22,10 @@ public class Usuario {
         this.direccion = direccion;
         this.telefono = telefono;
     }
-    
+     public Usuario(String id, String apellido_1) {
+        this.id = id;
+       this.apellido_1 = apellido_1;
+    }
     public String getId() {
         return id;
     }
